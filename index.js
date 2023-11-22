@@ -27,7 +27,24 @@ app.get('/users',(req,res)=>{
     })
 })
 app.post("/create",(req,res)=>{
-    
+    let name = req.body.name
+    let email = req.body.email
+    let password = req.body.password
+    let salary = req.body.salary
+    let address = req.body.address
+
+    dbcon.query("INSERT INTO employees (name,email,password,salary,address) values(?,?,?,?,?)",[name,email,password,salary,address],
+    (err,result)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            res.send("You have registered successfully")
+            console.log(result)
+        }
+    })
 })
 app.listen(port,()=>{
     console.log(`Listening at port ${port}`);
